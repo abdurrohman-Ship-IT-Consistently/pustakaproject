@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Buku</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 p-8 flex justify-center items-center min-h-screen">
+    <div class="bg-white p-6 rounded-xl shadow-md w-full max-w-md border border-slate-200">
+        <h2 class="text-xl font-bold text-slate-800 mb-4">Detail Informasi Buku</h2>
+        <div class="divide-y divide-slate-100 text-sm">
+            <div class="py-2"><span class="font-semibold text-slate-500 inline-block w-28">Judul:</span> <span class="text-slate-800 font-medium">{{ buku.judul }}</span></div>
+            <div class="py-2"><span class="font-semibold text-slate-500 inline-block w-28">Pengarang:</span> <span class="text-slate-600">{{ buku.pengarang }}</span></div>
+            <div class="py-2"><span class="font-semibold text-slate-500 inline-block w-28">Kategori:</span> <span class="text-slate-600">{{ buku.kategori }}</span></div>
+            <div class="py-2"><span class="font-semibold text-slate-500 inline-block w-28">Penerbit:</span> <span class="text-slate-600">{{ buku.penerbit }}</span></div>
+            <div class="py-2"><span class="font-semibold text-slate-500 inline-block w-28">Tahun Terbit:</span> <span class="text-slate-600">{{ buku.tahun_terbit }}</span></div>
+            <div class="py-2"><span class="font-semibold text-slate-500 inline-block w-28">Lokasi Rak:</span> <span class="text-slate-600">{{ buku.rak }}</span></div>
+            <div class="py-2"><span class="font-semibold text-slate-500 inline-block w-28">Sisa Stok:</span> <span class="text-slate-600">{{ buku.stok }}</span></div>
+            <div class="py-2"><span class="font-semibold text-slate-500 block mb-1">Deskripsi:</span> <p class="text-slate-600 bg-slate-50 p-2 rounded border border-slate-100 mt-1">{{ buku.deskripsi }}</p></div>
+        </div>
+        <div class="flex justify-end mt-6">
+            <a href="{% url 'buku_list' %}" class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-sm rounded-lg shadow">Kembali ke Daftar</a>
+        </div>
+    </div>
+</body>
+</html>

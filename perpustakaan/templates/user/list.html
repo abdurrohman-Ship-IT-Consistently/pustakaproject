@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIPUSTAKA - Data User</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#F8FAFC] flex min-h-screen font-sans">
+
+    <div class="w-64 bg-[#0B0F19] text-white p-6 space-y-6 flex-shrink-0 flex flex-col justify-between">
+        <div class="space-y-6">
+            <div class="flex items-center space-x-3 px-2">
+                <div class="bg-blue-600 h-9 w-9 rounded-lg flex items-center justify-center font-bold text-lg text-white shadow-md shadow-blue-500/20">P</div>
+                <div>
+                    <p class="text-[10px] text-slate-500 font-bold tracking-widest uppercase">SIPUSTAKA</p>
+                    <h1 class="font-bold text-xs text-slate-200">Sistem Peminjaman Buku</h1>
+                </div>
+            </div>
+            
+            <nav class="space-y-1 pt-4">
+                <a href="{% url 'dashboard' %}" class="flex items-center space-x-3 p-3 rounded-lg text-slate-400 hover:bg-slate-900/50 hover:text-white font-medium text-sm transition">
+                    <span class="text-base">📊</span> <span>Dashboard</span>
+                </a>
+                <a href="{% url 'buku_list' %}" class="flex items-center space-x-3 p-3 rounded-lg text-slate-400 hover:bg-slate-900/50 hover:text-white font-medium text-sm transition">
+                    <span class="text-base">📖</span> <span>Buku</span>
+                </a>
+                <a href="{% url 'peminjaman_list' %}" class="flex items-center space-x-3 p-3 rounded-lg text-slate-400 hover:bg-slate-900/50 hover:text-white font-medium text-sm transition">
+                    <span class="text-base">📋</span> <span>Peminjaman</span>
+                </a>
+                <a href="{% url 'user_list' %}" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-900 text-white font-medium text-sm transition">
+                    <span class="text-base">👥</span> <span>User</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="bg-slate-900/60 border border-slate-800 p-4 rounded-xl">
+            <p class="text-[10px] text-slate-500 font-medium">Admin Aktif</p>
+            <h4 class="text-xs font-bold text-slate-200 mt-0.5">Budi Siregar</h4>
+        </div>
+    </div>
+
+    <div class="flex-1 p-10 overflow-y-auto">
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <p class="text-xs text-slate-400 font-medium">Data siswa yang bisa meminjam buku.</p>
+                <h2 class="text-2xl font-bold text-slate-800 mt-0.5">User</h2>
+            </div>
+            <a href="{% url 'user_tambah' %}" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-xs font-semibold tracking-wide shadow-sm shadow-blue-600/10 transition flex items-center space-x-2">
+                <span>➕</span> <span>Tambah User</span>
+            </a>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-slate-50/70 border-b border-slate-100 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                        <th class="py-4 px-6 text-center w-16">ID</th>
+                        <th class="py-4 px-6">Nama</th>
+                        <th class="py-4 px-6">Kelas</th>
+                        <th class="py-4 px-6">NIS</th>
+                        <th class="py-4 px-6 text-center w-28">Status</th>
+                        <th class="py-4 px-6 text-center w-64">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 text-xs font-medium text-slate-700">
+                    {% for user in users %}
+                    <tr class="hover:bg-slate-50/50 transition">
+                        <td class="py-4 px-6 text-center font-bold text-slate-400">{{ user.id }}</td>
+                        <td class="py-4 px-6 font-semibold text-slate-900">{{ user.nama }}</td>
+                        <td class="py-4 px-6 text-slate-500">{{ user.kelas }}</td>
+                        <td class="py-4 px-6 font-mono text-slate-600">{{ user.nis }}</td>
+                        <td class="py-4 px-6 text-center">
+                            {% if user.is_active %}
+                            <span class="inline-flex px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-600 uppercase tracking-wide">Aktif</span>
+                            {% else %}
+                            <span class="inline-flex px-2.5 py-1 rounded-full text-[10px] font-bold bg-rose-50 text-rose-600 uppercase tracking-wide">Tidak Aktif</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-4 px-6 text-center space-x-1">
+                            <a href="{% url 'user_detail' user.id %}" class="text-slate-400 hover:text-slate-600 px-2.5 py-1.5 rounded-lg border border-slate-200 text-[11px] transition">Detail</a>
+                            <a href="{% url 'user_edit' user.id %}" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg text-[11px] font-semibold transition">Edit</a>
+                            <a href="{% url 'user_hapus' user.id %}" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-lg text-[11px] font-semibold transition">Hapus</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="py-10 text-center text-slate-400 italic">Belum ada data user terdaftar.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

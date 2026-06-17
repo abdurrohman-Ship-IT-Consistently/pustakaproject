@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIPUSTAKA - Dashboard Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#F8FAFC] flex min-h-screen font-sans">
+
+    <div class="w-64 bg-[#0B0F19] text-white p-6 space-y-6 flex-shrink-0 flex flex-col justify-between">
+        <div class="space-y-6">
+            <div class="flex items-center space-x-3 px-2">
+                <div class="bg-blue-600 h-9 w-9 rounded-lg flex items-center justify-center font-bold text-lg text-white shadow-md shadow-blue-500/20">P</div>
+                <div>
+                    <p class="text-[10px] text-slate-500 font-bold tracking-widest uppercase">SIPUSTAKA</p>
+                    <h1 class="font-bold text-xs text-slate-200">Sistem Peminjaman Buku</h1>
+                </div>
+            </div>
+            
+            <nav class="space-y-1 pt-4">
+                <a href="{% url 'dashboard' %}" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-900 text-white font-medium text-sm transition">
+                    <span class="text-base">📊</span> <span>Dashboard</span>
+                </a>
+                <a href="{% url 'buku_list' %}" class="flex items-center space-x-3 p-3 rounded-lg text-slate-400 hover:bg-slate-900/50 hover:text-white font-medium text-sm transition">
+                    <span class="text-base">📖</span> <span>Buku</span>
+                </a>
+                <a href="{% url 'peminjaman_list' %}" class="flex items-center space-x-3 p-3 rounded-lg text-slate-400 hover:bg-slate-900/50 hover:text-white font-medium text-sm transition">
+                    <span class="text-base">📋</span> <span>Peminjaman</span>
+                </a>
+                <a href="{% url 'user_list' %}" class="flex items-center space-x-3 p-3 rounded-lg text-slate-400 hover:bg-slate-900/50 hover:text-white font-medium text-sm transition">
+                    <span class="text-base">👥</span> <span>User</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="bg-slate-900/60 border border-slate-800 p-4 rounded-xl">
+            <p class="text-[10px] text-slate-500 font-medium">Admin Aktif</p>
+            <h4 class="text-xs font-bold text-slate-200 mt-0.5">Budi Siregar</h4>
+        </div>
+    </div>
+
+    <div class="flex-1 p-10 overflow-y-auto">
+        <div class="mb-8">
+            <p class="text-xs text-slate-400 font-medium">Analisis data sistem SIPUSTAKA.</p>
+            <h2 class="text-2xl font-bold text-slate-800 mt-0.5">Dashboard Analitik</h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+            <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm relative overflow-hidden">
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Buku</p>
+                <h3 class="text-3xl font-bold text-slate-800 mt-2">{{ total_buku }}</h3>
+                <p class="text-[11px] text-slate-400 mt-1">Keseluruhan unit buku tersedia.</p>
+                <span class="absolute top-4 right-4 text-blue-500 bg-blue-50 h-8 w-8 rounded-lg flex items-center justify-center text-sm">📘</span>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm relative overflow-hidden">
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Judul</p>
+                <h3 class="text-3xl font-bold text-slate-800 mt-2">{{ total_judul }}</h3>
+                <p class="text-[11px] text-slate-400 mt-1">Jumlah koleksi judul buku.</p>
+                <span class="absolute top-4 right-4 text-emerald-500 bg-emerald-50 h-8 w-8 rounded-lg flex items-center justify-center text-sm">📚</span>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm relative overflow-hidden">
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Sedang Dipinjam</p>
+                <h3 class="text-3xl font-bold text-slate-800 mt-2 text-amber-600">{{ sedang_dipinjam }}</h3>
+                <p class="text-[11px] text-slate-400 mt-1">Transaksi peminjaman aktif.</p>
+                <span class="absolute top-4 right-4 text-amber-500 bg-amber-50 h-8 w-8 rounded-lg flex items-center justify-center text-sm">⏳</span>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm relative overflow-hidden">
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Sudah Dikembalikan</p>
+                <h3 class="text-3xl font-bold text-slate-800 mt-2 text-emerald-600">{{ sudah_dikembalikan }}</h3>
+                <p class="text-[11px] text-slate-400 mt-1">Transaksi yang sudah selesai.</p>
+                <span class="absolute top-4 right-4 text-emerald-500 bg-emerald-50 h-8 w-8 rounded-lg flex items-center justify-center text-sm">✅</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm lg:col-span-2">
+                <div class="mb-4">
+                    <p class="text-[11px] text-slate-400 font-semibold tracking-wider uppercase">Analisis Stok</p>
+                    <h4 class="text-base font-bold text-slate-800">Distribusi Stok Buku</h4>
+                </div>
+                
+                <div class="space-y-5 pt-2">
+                    {% for buku in distribusi_stok %}
+                    <div>
+                        <div class="flex justify-between items-center text-xs font-medium text-slate-700 mb-1.5">
+                            <span class="truncate pr-4">{{ buku.judul }}</span>
+                            <span class="font-bold text-slate-900">{{ buku.stok }}</span>
+                        </div>
+                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                            <div class="bg-blue-600 h-full rounded-full transition-all duration-500" style="width: calc(({{ buku.stok }} / 20) * 100%)"></div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-xs text-slate-400 italic py-4 text-center">Belum ada koleksi buku di database.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="mb-5">
+                        <p class="text-[11px] text-slate-400 font-semibold tracking-wider uppercase">Status Peminjaman</p>
+                        <h4 class="text-base font-bold text-slate-800">Ringkasan Transaksi</h4>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-xs font-medium mb-1">
+                                <span class="text-slate-600">Sedang Dipinjam</span>
+                                <span class="text-amber-600 font-bold">{{ sedang_dipinjam }}</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-1.5 rounded-full">
+                                <div class="bg-amber-500 h-full rounded-full" style="width: {% if sedang_dipinjam or sudah_dikembalikan %}calc(({{ sedang_dipinjam }} / ({{ sedang_dipinjam }} + {{ sudah_dikembalikan }})) * 100%){% else %}0%{% endif %}"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-medium mb-1">
+                                <span class="text-slate-600">Sudah Dikembalikan</span>
+                                <span class="text-emerald-600 font-bold">{{ sudah_dikembalikan }}</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-1.5 rounded-full">
+                                <div class="bg-emerald-500 h-full rounded-full" style="width: {% if sedang_dipinjam or sudah_dikembalikan %}calc(({{ sudah_dikembalikan }} / ({{ sedang_dipinjam }} + {{ sudah_dikembalikan }})) * 100%){% else %}0%{% endif %}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-4 border-t border-slate-100 text-[11px] text-slate-400 text-center">
+                    Data diperbarui secara otomatis melalui PostgreSQL Raw SQL.
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIPUSTAKA - Transaksi Peminjaman</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#F8FAFC] flex min-h-screen font-sans">
+
+    <div class="w-64 bg-[#0B0F19] text-white p-6 space-y-6 flex-shrink-0 flex flex-col justify-between">
+        <div class="space-y-6">
+            <div class="flex items-center space-x-3 px-2">
+                <div class="bg-blue-600 h-9 w-9 rounded-lg flex items-center justify-center font-bold text-lg text-white shadow-md shadow-blue-500/20">P</div>
+                <div>
+                    <p class="text-[10px] text-slate-500 font-bold tracking-widest uppercase">SIPUSTAKA</p>
+                    <h1 class="font-bold text-xs text-slate-200">Sistem Peminjaman Buku</h1>
+                </div>
+            </div>
+            
+            <nav class="space-y-1 pt-4">
+                <a href="{% url 'dashboard' %}" class="flex items-center space-x-3 p-3 rounded-lg text-slate-400 hover:bg-slate-900/50 hover:text-white font-medium text-sm transition">
+                    <span class="text-base">📊</span> <span>Dashboard</span>
+                </a>
+                <a href="{% url 'buku_list' %}" class="flex items-center space-x-3 p-3 rounded-lg text-slate-400 hover:bg-slate-900/50 hover:text-white font-medium text-sm transition">
+                    <span class="text-base">📖</span> <span>Buku</span>
+                </a>
+                <a href="{% url 'peminjaman_list' %}" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-900 text-white font-medium text-sm transition">
+                    <span class="text-base">📋</span> <span>Peminjaman</span>
+                </a>
+                <a href="{% url 'user_list' %}" class="flex items-center space-x-3 p-3 rounded-lg text-slate-400 hover:bg-slate-900/50 hover:text-white font-medium text-sm transition">
+                    <span class="text-base">👥</span> <span>User</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="bg-slate-900/60 border border-slate-800 p-4 rounded-xl">
+            <p class="text-[10px] text-slate-500 font-medium">Admin Aktif</p>
+            <h4 class="text-xs font-bold text-slate-200 mt-0.5">Budi Siregar</h4>
+        </div>
+    </div>
+
+    <div class="flex-1 p-10 overflow-y-auto">
+        {% if messages %}
+            <div class="mb-4 space-y-2">
+                {% for message in messages %}
+                    <div class="p-4 rounded-xl text-xs font-semibold {% if message.tags == 'error' %} bg-rose-50 text-rose-600 border border-rose-100 {% else %} bg-emerald-50 text-emerald-600 border border-emerald-100 {% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <p class="text-xs text-slate-400 font-medium">Catatan sirkulasi peminjaman dan pengembalian buku.</p>
+                <h2 class="text-2xl font-bold text-slate-800 mt-0.5">Log Transaksi</h2>
+            </div>
+            <a href="{% url 'peminjaman_tambah' %}" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-xs font-semibold tracking-wide shadow-sm shadow-blue-600/10 transition flex items-center space-x-2">
+                <span>➕</span> <span>Transaksi Baru</span>
+            </a>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-slate-50/70 border-b border-slate-100 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                        <th class="py-4 px-6 text-center w-16">ID</th>
+                        <th class="py-4 px-6">Nama Peminjam</th>
+                        <th class="py-4 px-6">Judul Buku</th>
+                        <th class="py-4 px-6 text-center">Tgl Pinjam</th>
+                        <th class="py-4 px-6 text-center">Jatuh Tempo</th>
+                        <th class="py-4 px-6 text-center w-32">Status</th>
+                        <th class="py-4 px-6 text-center w-48">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 text-xs font-medium text-slate-700">
+                    {% for p in daftar_peminjaman %}
+                    <tr class="hover:bg-slate-50/50 transition">
+                        <td class="py-4 px-6 text-center font-bold text-slate-400">{{ p.id }}</td>
+                        <td class="py-4 px-6 font-semibold text-slate-900">{{ p.nama_siswa }}</td>
+                        <td class="py-4 px-6 text-slate-600 font-medium">{{ p.judul_buku }}</td>
+                        <td class="py-4 px-6 text-center text-slate-500 font-mono">{{ p.tanggal_pinjam|date:"d M Y" }}</td>
+                        <td class="py-4 px-6 text-center text-slate-500 font-mono">{{ p.jatuh_tempo|date:"d M Y" }}</td>
+                        <td class="py-4 px-6 text-center">
+                            {% if p.status == 'Dipinjam' %}
+                            <span class="inline-flex px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-50 text-amber-600 uppercase tracking-wide">Dipinjam</span>
+                            {% else %}
+                            <span class="inline-flex px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-600 uppercase tracking-wide">Kembali</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-4 px-6 text-center">
+                            <div class="flex items-center justify-center space-x-2">
+                                {% if p.status == 'Dipinjam' %}
+                                <form action="{% url 'peminjaman_kembali' p.id %}" method="POST" onsubmit="return confirm('Yakin buku ini ingin dikembalikan?');">
+                                    {% csrf_token %}
+                                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-[11px] font-semibold shadow-sm transition">Kembalikan</button>
+                                </form>
+                                {% else %}
+                                <button disabled class="bg-slate-100 text-slate-400 px-3 py-1.5 rounded-lg text-[11px] font-semibold cursor-not-allowed">Selesai</button>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="py-10 text-center text-slate-400 italic">Belum ada riwayat transaksi peminjaman.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIPUSTAKA - Detail User</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 p-8 flex justify-center items-center min-h-screen">
+    
+    <div class="bg-white p-6 rounded-xl shadow-md w-full max-w-sm border border-slate-200">
+        <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 border border-blue-100">
+            {{ user.nama|slice:":2"|upper }}
+        </div>
+        
+        <h2 class="text-lg font-bold text-slate-800 text-center mb-6">Detail Profil User</h2>
+        
+        <div class="divide-y divide-slate-100 text-sm">
+            <div class="py-2.5">
+                <span class="font-semibold text-slate-500 inline-block w-24">Nama:</span> 
+                <span class="text-slate-800 font-semibold">{{ user.nama }}</span>
+            </div>
+            <div class="py-2.5">
+                <span class="font-semibold text-slate-500 inline-block w-24">Kelas:</span> 
+                <span class="text-slate-600">{{ user.kelas }}</span>
+            </div>
+            <div class="py-2.5">
+                <span class="font-semibold text-slate-500 inline-block w-24">NIS:</span> 
+                <span class="text-slate-600 font-mono">{{ user.nis }}</span>
+            </div>
+            <div class="py-2.5">
+                <span class="font-semibold text-slate-500 inline-block w-24">Status:</span> 
+                {% if user.is_active %}
+                <span class="px-2 py-0.5 bg-emerald-50 text-emerald-600 text-xs font-bold rounded-full uppercase tracking-wide">Aktif</span>
+                {% else %}
+                <span class="px-2 py-0.5 bg-rose-50 text-rose-600 text-xs font-bold rounded-full uppercase tracking-wide">Non-Aktif</span>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="flex justify-end mt-6">
+            <a href="{% url 'user_list' %}" class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold rounded-xl shadow transition">
+                Kembali
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
