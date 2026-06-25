@@ -10,13 +10,21 @@
 
     <div class="w-64 bg-[#0B0F19] text-white p-6 space-y-6 flex-shrink-0 flex flex-col justify-between">
         <div class="space-y-6">
-            <div class="flex items-center space-x-3 px-2">
-                <div class="bg-blue-600 h-9 w-9 rounded-lg flex items-center justify-center font-bold text-lg text-white shadow-md shadow-blue-500/20">P</div>
-                <div>
-                    <p class="text-[10px] text-slate-500 font-bold tracking-widest uppercase">SIPUSTAKA</p>
-                    <h1 class="font-bold text-xs text-slate-200">Sistem Peminjaman Buku</h1>
-                </div>
-            </div>
+<div class="flex items-center gap-4 px-2 py-4">
+    <div class="h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700 flex items-center justify-center text-white shadow-xl shadow-blue-600/30 border border-blue-400/30">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+        </svg>
+    </div>
+    
+    <div class="flex flex-col">
+        <h1 class="font-extrabold text-lg text-white tracking-tight">SIPUSTAKA</h1>
+        <div class="flex items-center gap-1.5">
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+            <p class="text-[10px] text-blue-300 font-semibold uppercase tracking-widest">Admin Panel</p>
+        </div>
+    </div>
+</div>
             
             <nav class="space-y-1 pt-4">
                 <a href="{% url 'dashboard' %}" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-900 text-white font-medium text-sm transition">
@@ -34,16 +42,33 @@
             </nav>
         </div>
 
-        <div class="bg-slate-900/60 border border-slate-800 p-4 rounded-xl">
-            <p class="text-[10px] text-slate-500 font-medium">Admin Aktif</p>
-            <h4 class="text-xs font-bold text-slate-200 mt-0.5">Bambang H.</h4>
-        </div>
+<div class="flex items-center justify-between bg-slate-900/60 border border-slate-800/80 p-3.5 rounded-xl">
+    <div>
+        <p class="text-[10px] text-slate-500 font-medium tracking-wide">Admin Aktif</p>
+        <h4 class="text-xs font-bold text-slate-200 mt-0.5">Abdurrohman</h4>
+    </div>
+    <!-- Ping Indikator Aktif -->
+    <span class="relative flex h-2 w-2 shrink-0">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+    </span>
+</div>
     </div>
 
-    <div class="flex-1 p-10 overflow-y-auto">
+<div class="flex-1 p-10 overflow-y-auto">
+        
+        <div class="mb-8 bg-gradient-to-r from-blue-600 to-blue-800 p-8 rounded-3xl shadow-lg shadow-blue-500/20 text-white relative overflow-hidden">
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            
+            <div class="relative z-10">
+                <h2 class="text-2xl font-bold leading-tight">Siap untuk memperluas cakrawala pengetahuanmu hari ini?</h2>
+                <p class="text-blue-100 mt-2.5 max-w-2xl text-sm leading-relaxed">Kami telah mengumpulkan ribuan koleksi terbaik untuk menemanimu belajar, meneliti, atau sekadar mencari inspirasi.</p>
+            </div>
+        </div>
+
         <div class="mb-8">
-            <p class="text-xs text-slate-400 font-medium">Analisis data sistem SIPUSTAKA.</p>
-            <h2 class="text-2xl font-bold text-slate-800 mt-0.5">Dashboard Analitik</h2>
+            <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Analisis data sistem SIPUSTAKA</p>
+            <h2 class="text-2xl font-extrabold text-slate-800 mt-1">Dashboard Analitik</h2>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">

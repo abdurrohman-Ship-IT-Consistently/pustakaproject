@@ -18,55 +18,15 @@ def dictfetchone(cursor):
 
 # ==================== 1. READ (LIST BUKU) ====================
 def buku_list(request):
-    with connection.cursor() as cursor:
-        # Mengambil data sesuai kolom di mockup gambar Anda
-        cursor.execute("SELECT id, judul, pengarang, kategori, penerbit, tahun_terbit, rak, stok FROM tabel_buku ORDER BY id DESC")
-        daftar_buku = dictfetchall(cursor)
-    
-    return render(request, 'buku/list.html', {'daftar_buku': daftar_buku})
-
-# ==================== 2. CREATE (TAMBAH BUKU) ====================
-def buku_tambah(request):
-    if request.method == 'POST':
-        judul = request.POST.get('judul')
-        pengarang = request.POST.get('pengarang')
-        kategori = request.POST.get('kategori')
-        penerbit = request.POST.get('penerbit')
-        tahun_terbit = request.POST.get('tahun_terbit')
-        rak = request.POST.get('rak')
-        stok = request.POST.get('stok')
-        deskripsi = request.POST.get('deskripsi')
-
-        # Raw SQL Insert
         with connection.cursor() as cursor:
-            cursor.execute("""
-                INSERT INTO tabel_buku (judul, pengarang, kategori, penerbit, tahun_terbit, rak, stok, deskripsi)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-            """, [judul, pengarang, kategori, penerbit, tahun_terbit, rak, stok, deskripsi])
+            # Mengambil data sesuai kolom di mockup gambar Anda
+            cursor.execute("SELECT id, judul, pengarang, kategori, penerbit, tahun_terbit, rak, stok FROM tabel_buku ORDER BY id DESC")
+            daftar_buku = dictfetchall(cursor)
         
-        return redirect('buku_list')
+        return render(request, 'buku/list.html', {'daftar_buku': daftar_buku})
 
-    # Dropdown pilihan sesuai instruksi pada gambar
-    pilihan_kategori = ['Novel', 'Sejarah', 'Pendidikan']
-    pilihan_rak = ['Rak A-01', 'Rak A-02', 'Rak A-03', 'Rak A-04', 'Rak A-05']
-    
-    context = {
-        'pilihan_kategori': pilihan_kategori,
-        'pilihan_rak': pilihan_rak
-    }
-    return render(request, 'buku/tambah.html', context)
-
-# ==================== 3. READ (DETAIL BUKU) ====================
-def buku_detail(request, id):
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM tabel_buku WHERE id = %s", [id])
-        buku = dictfetchone(cursor)
-        
-    return render(request, 'buku/detail.html', {'buku': buku})
-
-# ==================== 4. UPDATE (EDIT BUKU) ====================
-def buku_edit(request, id):
-    with connection.cursor() as cursor:
+    # ==================== 2. CREATE (TAMBAH BUKU) ====================
+def buku_tambah(request):
         if request.method == 'POST':
             judul = request.POST.get('judul')
             pengarang = request.POST.get('pengarang')
@@ -77,45 +37,93 @@ def buku_edit(request, id):
             stok = request.POST.get('stok')
             deskripsi = request.POST.get('deskripsi')
 
-            # Raw SQL Update
-            cursor.execute("""
-                UPDATE tabel_buku 
-                SET judul=%s, pengarang=%s, kategori=%s, penerbit=%s, tahun_terbit=%s, rak=%s, stok=%s, deskripsi=%s
-                WHERE id=%s
-            """, [judul, pengarang, kategori, penerbit, tahun_terbit, rak, stok, deskripsi, id])
+            # Raw SQL Insert
+            with connection.cursor() as cursor:
+                cursor.execute("""
+                    INSERT INTO tabel_buku (judul, pengarang, kategori, penerbit, tahun_terbit, rak, stok, deskripsi)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                """, [judul, pengarang, kategori, penerbit, tahun_terbit, rak, stok, deskripsi])
             
             return redirect('buku_list')
+
+        # Dropdown pilihan sesuai instruksi pada gambar
+        pilihan_kategori = ['Novel', 'Sejarah', 'Pendidikan']
+        pilihan_rak = ['Rak A-01', 'Rak A-02', 'Rak A-03', 'Rak A-04', 'Rak A-05']
         
-        # Ambil data lama untuk ditampilkan di form edit
-        cursor.execute("SELECT * FROM tabel_buku WHERE id = %s", [id])
-        buku = dictfetchone(cursor)
+        context = {
+            'pilihan_kategori': pilihan_kategori,
+            'pilihan_rak': pilihan_rak
+        }
+        return render(request, 'buku/tambah.html', context)
 
-    pilihan_kategori = ['Novel', 'Sejarah', 'Pendidikan']
-    pilihan_rak = ['Rak A-01', 'Rak A-02', 'Rak A-03', 'Rak A-04', 'Rak A-05']
-
-    context = {
-        'buku': buku,
-        'pilihan_kategori': pilihan_kategori,
-        'pilihan_rak': pilihan_rak
-    }
-    return render(request, 'buku/edit.html', context)
-
-# ==================== 5. DELETE (HAPUS BUKU) ====================
-def buku_hapus(request, id):
-    if request.method == 'POST':
+    # ==================== 3. READ (DETAIL BUKU) ====================
+def buku_detail(request, id):
         with connection.cursor() as cursor:
-            cursor.execute("DELETE FROM tabel_buku WHERE id = %s", [id])
-        return redirect('buku_list')
-        
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT id, judul FROM tabel_buku WHERE id = %s", [id])
-        buku = dictfetchone(cursor)
-        
-    return render(request, 'buku/hapus_konfirmasi.html', {'buku': buku})
+            cursor.execute("SELECT * FROM tabel_buku WHERE id = %s", [id])
+            buku = dictfetchone(cursor)
+            
+        return render(request, 'buku/detail.html', {'buku': buku})
+
+    # ==================== 4. UPDATE (EDIT BUKU) ====================
+def buku_edit(request, id):
+        with connection.cursor() as cursor:
+            if request.method == 'POST':
+                judul = request.POST.get('judul')
+                pengarang = request.POST.get('pengarang')
+                kategori = request.POST.get('kategori')
+                penerbit = request.POST.get('penerbit')
+                tahun_terbit = request.POST.get('tahun_terbit')
+                rak = request.POST.get('rak')
+                stok = request.POST.get('stok')
+                deskripsi = request.POST.get('deskripsi')
+
+                # Raw SQL Update
+                cursor.execute("""
+                    UPDATE tabel_buku 
+                   SET judul=%s, pengarang=%s, kategori=%s, penerbit=%s, tahun_terbit=%s, rak=%s, stok=%s, deskripsi=%s
+                    WHERE id=%s
+                """, [judul, pengarang, kategori, penerbit, tahun_terbit, rak, stok, deskripsi, id])
+                
+                return redirect('buku_list')
+            
+            # Ambil data lama untuk ditampilkan di form edit
+            cursor.execute("SELECT * FROM tabel_buku WHERE id = %s", [id])
+            buku = dictfetchone(cursor)
+
+        pilihan_kategori = ['Novel', 'Sejarah', 'Pendidikan']
+        pilihan_rak = ['Rak A-01', 'Rak A-02', 'Rak A-03', 'Rak A-04', 'Rak A-05']
+
+        context = {
+            'buku': buku,
+            'pilihan_kategori': pilihan_kategori,
+            'pilihan_rak': pilihan_rak
+        }
+        return render(request, 'buku/edit.html', context)
+
+    # ==================== 5. DELETE (HAPUS BUKU) ====================
+def buku_hapus(request, id):
+        if request.method == 'POST':
+            with connection.cursor() as cursor:
+                cursor.execute("DELETE FROM tabel_buku WHERE id = %s", [id])
+            return redirect('buku_list')
+            
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT id, judul FROM tabel_buku WHERE id = %s", [id])
+            buku = dictfetchone(cursor)
+            
+        return render(request, 'buku/hapus_konfirmasi.html', {'buku': buku})
 
 # ==================== 1. READ (LIST PEMINJAMAN DENGAN SQL JOIN) ====================
 def peminjaman_list(request):
     with connection.cursor() as cursor:
+        # TAMBAHAN 1: Update otomatis status menjadi 'Terlambat' 
+        # untuk buku yang masih 'Dipinjam' tapi sudah melewati tanggal jatuh tempo
+        cursor.execute("""
+            UPDATE tabel_peminjaman 
+            SET status = 'Terlambat' 
+            WHERE status = 'Dipinjam' AND jatuh_tempo < CURRENT_DATE
+        """)
+
         # Menggabungkan 3 tabel (JOIN) untuk mendapatkan nama siswa dan judul buku secara akurat
         cursor.execute("""
             SELECT 
@@ -187,7 +195,8 @@ def peminjaman_kembali(request, id):
             cursor.execute("SELECT buku_id, status FROM tabel_peminjaman WHERE id = %s", [id])
             transaksi = dictfetchone(cursor)
 
-            if transaksi and transaksi['status'] == 'Dipinjam':
+            # TAMBAHAN 2: Izinkan pengembalian untuk status 'Dipinjam' ATAU 'Terlambat'
+            if transaksi and transaksi['status'] in ['Dipinjam', 'Terlambat']:
                 # A. Update status peminjaman menjadi 'Dikembalikan'
                 cursor.execute("UPDATE tabel_peminjaman SET status = 'Dikembalikan' WHERE id = %s", [id])
                 
@@ -196,7 +205,6 @@ def peminjaman_kembali(request, id):
                 messages.success(request, "Buku telah sukses dikembalikan. Stok otomatis bertambah!")
 
         return redirect('peminjaman_list')
-    
     # ==================== REVISI: MODUL USER (RAW SQL) ====================
 
 # ==================== UPDATE JALUR TEMPLATE KE FOLDER USER ====================
