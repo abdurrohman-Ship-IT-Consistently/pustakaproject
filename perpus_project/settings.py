@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-nlksxb8amp()(8_ld(v+5l)8=q*lzhqa2nzcziw%a@9t&7p-&5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # Ganti 'usernameanda' dengan username Akun PythonAnywhere Anda
 ALLOWED_HOSTS = ['ShipStack.pythonanywhere.com', 'localhost', '127.0.0.1']
