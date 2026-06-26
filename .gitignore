@@ -1,0 +1,15 @@
+# Folder lingkungan virtual (sangat penting untuk diabaikan)
+venv/
+env/
+
+# Folder cache Python
+__pycache__/
+*.pyc
+
+# Pengaturan pribadi dan file rahasia
+.env
+.vscode/
+
+# File sistem operasi
+.DS_Store
+Thumbs.db
