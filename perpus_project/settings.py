@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-nlksxb8amp()(8_ld(v+5l)8=q*lzhqa2nzcziw%a@9t&7p-&5
 DEBUG = False
 
 # Ganti 'usernameanda' dengan username Akun PythonAnywhere Anda
-ALLOWED_HOSTS = ['ShipStack.pythonanywhere.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'ShipStack.pythonanywhere.com',  # Untuk di server PythonAnywhere
+    '127.0.0.1',                     # Untuk di laptop (localhost)
+    'localhost',                     # Alternatif untuk di laptop
+]
 
 
 # Application definition
@@ -73,7 +77,6 @@ WSGI_APPLICATION = 'perpus_project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-
 
 
 DATABASES = {
