@@ -1,20 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Konfirmasi Hapus</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-100 p-8 flex justify-center items-center min-h-screen">
-    <div class="bg-white p-6 rounded-xl shadow-md w-full max-w-sm border border-slate-200 text-center">
-        <div class="w-16 h-16 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">!</div>
-        <h2 class="text-lg font-bold text-slate-800 mb-2">Hapus Data Buku?</h2>
-        <p class="text-slate-500 text-sm mb-6">Apakah Anda yakin ingin menghapus buku <strong class="text-slate-800">"{{ buku.judul }}"</strong>? Tindakan ini tidak dapat dibatalkan.</p>
+<body class="bg-slate-100 p-4 sm:p-8 flex justify-center items-center min-h-screen">
+    
+    <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm w-full max-w-sm border border-slate-100 text-center">
+        <div class="w-16 h-16 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-5 text-2xl font-bold">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+        </div>
+        
+        <h2 class="text-xl font-bold text-slate-800 mb-2">Hapus Data?</h2>
+        <p class="text-slate-500 text-sm mb-6 leading-relaxed">
+            Apakah Anda yakin ingin menghapus buku <strong class="text-slate-800">"{{ buku.judul }}"</strong>? Tindakan ini tidak dapat dibatalkan.
+        </p>
+        
         <form method="POST">
             {% csrf_token %}
-            <div class="flex justify-center space-x-2">
-                <a href="{% url 'buku_list' %}" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-600 hover:bg-slate-50 text-sm font-medium">Batal</a>
-                <button type="submit" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-sm font-medium">Ya, Hapus Data</button>
+            <div class="flex flex-col gap-3">
+                <button type="submit" class="w-full px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-sm font-semibold transition">
+                    Ya, Hapus Data
+                </button>
+                <a href="{% url 'buku_list' %}" class="w-full px-4 py-2.5 border border-slate-200 text-slate-600 hover:bg-slate-50 rounded-xl text-sm font-semibold transition">
+                    Batal
+                </a>
             </div>
         </form>
     </div>

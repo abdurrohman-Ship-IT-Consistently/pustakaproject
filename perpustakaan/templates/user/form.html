@@ -6,9 +6,9 @@
     <title>SIPUSTAKA - {{ action }} User</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#F8FAFC] min-h-screen flex items-center justify-center p-6">
+<body class="bg-[#F8FAFC] min-h-screen flex items-center justify-center p-4 sm:p-6">
 
-    <div class="w-full max-w-md bg-white border border-slate-100 rounded-2xl shadow-sm p-8">
+    <div class="w-full max-w-md bg-white border border-slate-100 rounded-2xl shadow-sm p-5 sm:p-8">
         <div class="mb-6">
             <h2 class="text-xl font-bold text-slate-800">{{ action }} Data User</h2>
             <p class="text-xs text-slate-400 mt-1">Lengkapi informasi berkas pendaftaran user perpustakaan.</p>
@@ -39,16 +39,21 @@
 
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Status Aktif User</label>
-      <select name="is_active" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-medium focus:outline-none focus:border-blue-500 transition">
-        <option value="True" {% if user.is_active == True or user.is_active is None %}selected{% endif %}>Aktif</option>
-        <option value="False" {% if user.is_active == False %}selected{% endif %}>Tidak Aktif</option>
-      </select>
+                <select name="is_active" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-medium focus:outline-none focus:border-blue-500 transition bg-white cursor-pointer">
+                    <option value="True" class="text-xs" {% if user.is_active == True or user.is_active is None %}selected{% endif %}>Aktif</option>
+                    <option value="False" class="text-xs" {% if user.is_active == False %}selected{% endif %}>Tidak Aktif</option>
+                </select>
             </div>
 
-            <div class="pt-4 flex justify-end space-x-2">
-                <a href="{% url 'user_list' %}" class="px-4 py-2.5 text-xs font-semibold text-slate-500 hover:bg-slate-50 rounded-xl transition">Batal</a>
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 text-xs font-semibold rounded-xl shadow-sm transition">Simpan Berkas</button>
-            </div>
+<div class="pt-4 flex flex-col sm:flex-row justify-end gap-3">
+    <button type="submit" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 text-xs font-semibold rounded-xl shadow-sm transition text-center">
+        Simpan Berkas
+    </button>
+
+    <a href="{% url 'user_list' %}" class="w-full sm:w-auto text-center px-4 py-2.5 text-xs font-semibold text-slate-500 hover:bg-slate-50 rounded-xl transition border border-slate-200">
+        Batal
+    </a>
+</div>
         </form>
     </div>
 

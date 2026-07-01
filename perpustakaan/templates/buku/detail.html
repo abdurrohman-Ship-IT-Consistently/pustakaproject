@@ -1,25 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Buku</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-100 p-8 flex justify-center items-center min-h-screen">
-    <div class="bg-white p-6 rounded-xl shadow-md w-full max-w-md border border-slate-200">
-        <h2 class="text-xl font-bold text-slate-800 mb-4">Detail Informasi Buku</h2>
-        <div class="divide-y divide-slate-100 text-sm">
-            <div class="py-2"><span class="font-semibold text-slate-500 inline-block w-28">Judul:</span> <span class="text-slate-800 font-medium">{{ buku.judul }}</span></div>
-            <div class="py-2"><span class="font-semibold text-slate-500 inline-block w-28">Pengarang:</span> <span class="text-slate-600">{{ buku.pengarang }}</span></div>
-            <div class="py-2"><span class="font-semibold text-slate-500 inline-block w-28">Kategori:</span> <span class="text-slate-600">{{ buku.kategori }}</span></div>
-            <div class="py-2"><span class="font-semibold text-slate-500 inline-block w-28">Penerbit:</span> <span class="text-slate-600">{{ buku.penerbit }}</span></div>
-            <div class="py-2"><span class="font-semibold text-slate-500 inline-block w-28">Tahun Terbit:</span> <span class="text-slate-600">{{ buku.tahun_terbit }}</span></div>
-            <div class="py-2"><span class="font-semibold text-slate-500 inline-block w-28">Lokasi Rak:</span> <span class="text-slate-600">{{ buku.rak }}</span></div>
-            <div class="py-2"><span class="font-semibold text-slate-500 inline-block w-28">Sisa Stok:</span> <span class="text-slate-600">{{ buku.stok }}</span></div>
-            <div class="py-2"><span class="font-semibold text-slate-500 block mb-1">Deskripsi:</span> <p class="text-slate-600 bg-slate-50 p-2 rounded border border-slate-100 mt-1">{{ buku.deskripsi }}</p></div>
+<body class="bg-slate-100 p-4 sm:p-8 flex justify-center items-start min-h-screen">
+    
+    <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm w-full max-w-lg border border-slate-100">
+        <h2 class="text-xl font-bold text-slate-800 mb-6 border-b pb-4">Detail Informasi Buku</h2>
+        
+        <div class="space-y-5 text-sm">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4">
+                <span class="font-semibold text-slate-500">Judul:</span>
+                <span class="sm:col-span-2 text-slate-800 font-semibold">{{ buku.judul }}</span>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4">
+                <span class="font-semibold text-slate-500">Pengarang:</span>
+                <span class="sm:col-span-2 text-slate-600">{{ buku.pengarang }}</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4">
+                <span class="font-semibold text-slate-500">Kategori:</span>
+                <span class="sm:col-span-2 text-slate-600">{{ buku.kategori }}</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4">
+                <span class="font-semibold text-slate-500">Penerbit:</span>
+                <span class="sm:col-span-2 text-slate-600">{{ buku.penerbit }}</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4">
+                <span class="font-semibold text-slate-500">Tahun Terbit:</span>
+                <span class="sm:col-span-2 text-slate-600">{{ buku.tahun_terbit }}</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4">
+                <span class="font-semibold text-slate-500">Lokasi Rak:</span>
+                <span class="sm:col-span-2 text-slate-600">{{ buku.rak }}</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4">
+                <span class="font-semibold text-slate-500">Sisa Stok:</span>
+                <span class="sm:col-span-2 font-medium text-blue-600">{{ buku.stok }} Buku</span>
+            </div>
+
+            <div class="pt-2">
+                <span class="font-semibold text-slate-500 block mb-2">Deskripsi:</span>
+                <p class="text-slate-600 bg-slate-50 p-4 rounded-xl border border-slate-100 leading-relaxed text-xs sm:text-sm">
+                    {{ buku.deskripsi }}
+                </p>
+            </div>
         </div>
-        <div class="flex justify-end mt-6">
-            <a href="{% url 'buku_list' %}" class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-sm rounded-lg shadow">Kembali ke Daftar</a>
+
+        <div class="mt-8 pt-4 border-t border-slate-100 flex justify-end">
+            <a href="{% url 'buku_list' %}" class="w-full sm:w-auto text-center px-6 py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-xl shadow-sm transition">
+                Kembali ke Daftar
+            </a>
         </div>
     </div>
 </body>
