@@ -1,15 +1,24 @@
-# Folder lingkungan virtual (sangat penting untuk diabaikan)
-venv/
-env/
-
-# Folder cache Python
+# --- Python ---
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-log.txt
+pip-delete-this-directory.txt
 
-# Pengaturan pribadi dan file rahasia
+# --- Database & Data ---
+db.sqlite3
+db.sqlite3-journal
+
+# --- Pengaturan Pribadi & Rahasia (Sangat Penting) ---
 .env
 .vscode/
+.idea/
+*.log
 
-# File sistem operasi
+# --- File Sistem Operasi ---
 .DS_Store
 Thumbs.db
